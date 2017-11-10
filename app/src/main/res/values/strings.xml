@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SQL Exm03</string>
+    <string name="button_create">Create</string>
+    <string name="button_select">Select</string>
+</resources>
