@@ -7,8 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     Button btnCreate;
@@ -27,11 +32,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    Random rnd = new Random();
                     SQLiteDatabase db = biblotecaHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
-                    values.put(BibliotecaContract.Livro.COLUMN_NAME_TITULO, "Deu a louca no império");
-                    values.put(BibliotecaContract.Livro.COLUMN_NAME_AUTOR, "JRR RR");
-                    values.put(BibliotecaContract.Livro.COLUMN_NAME_ANO, 1978);
+                    values.put(BibliotecaContract.Livro.COLUMN_NAME_TITULO, "Livro "+rnd.nextInt(100));
+                    values.put(BibliotecaContract.Livro.COLUMN_NAME_AUTOR, "Autor "+rnd.nextInt(50));
+                    values.put(BibliotecaContract.Livro.COLUMN_NAME_ANO, 1978+rnd.nextInt(30));
                     long id = db.insert(BibliotecaContract.Livro.TABLE_NAME, null, values);
                 } catch (Exception e) {
                     Log.e("BIBLIO", e.getLocalizedMessage());
@@ -55,12 +61,27 @@ public class MainActivity extends AppCompatActivity {
                     String[] args = {"1950"};
                     String sort = BibliotecaContract.Livro.COLUMN_NAME_AUTOR + " DESC";
                     Cursor c = db.query(BibliotecaContract.Livro.TABLE_NAME, visao, selecao, args, null, null, sort);
-                    c.moveToFirst();
-                    int idxId = c.getColumnIndexOrThrow(BibliotecaContract.Livro._ID);
-                    int idxTitulo = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_TITULO);
-                    int idxAutor = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_AUTOR);
-                    int idxAno = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_ANO);
-                    saida.setText(c.getString(idxId) + " " + c.getString(idxTitulo) + " " + c.getInt(idxAno));
+
+                    c.move(-1);
+                    StringBuilder sb = new StringBuilder();
+                    while(c.moveToNext()) {
+                        int idxId = c.getColumnIndexOrThrow(BibliotecaContract.Livro._ID);
+                        int idxTitulo = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_TITULO);
+                        int idxAutor = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_AUTOR);
+                        int idxAno = c.getColumnIndexOrThrow(BibliotecaContract.Livro.COLUMN_NAME_ANO);
+                        sb.append(c.getString(idxId) + " " + c.getString(idxTitulo) + " " + c.getInt(idxAno)+"\n");
+                    }
+                    saida.setText(sb.toString());
+                    LivroAdapter adapter = new LivroAdapter(getBaseContext(), c);
+                    ListView lstLivros = (ListView) findViewById(R.id.list_livros);
+                    lstLivros.setAdapter(adapter);
+                    lstLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Toast.makeText(getBaseContext(), "ID do registro: "+l, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 } catch (Exception e) {
                     Log.e("BIBLIO", e.getLocalizedMessage());
                     Log.e("BIBLIO", e.getStackTrace().toString());
