@@ -18,29 +18,28 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     Button btnCreate;
     Button btnSelect;
-    BibliotecaDbHelper biblotecaHelper;
+    TarefaDbHelper tarefaHelper;
     TextView saida;
-    ListView lstLivros;
-    LivroAdapter adapter;
+    ListView lstTarefas;
+    TarefaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lstLivros = (ListView) findViewById(R.id.list_livros);
-        adapter = new LivroAdapter(getBaseContext(), null);
+        lstTarefas = (ListView) findViewById(R.id.list_tarefas);
+        adapter = new TarefaAdapter(getBaseContext(), null);
 
-        lstLivros.setAdapter(adapter);
+        lstTarefas.setAdapter(adapter);
         adapter.atualizar();
-        lstLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lstTarefas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getBaseContext(), "ID do registro: "+l, Toast.LENGTH_SHORT).show();
             }
         });
 
-        saida = (TextView) findViewById(R.id.text_saida);
-        biblotecaHelper = new BibliotecaDbHelper(getApplicationContext());
+        tarefaHelper = new TarefaDbHelper(getApplicationContext());
         btnCreate = (Button) findViewById(R.id.button_create);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override

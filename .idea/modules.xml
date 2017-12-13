@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SQLExm03.iml" filepath="$PROJECT_DIR$/SQLExm03.iml" />
+      <module fileurl="file://C:\Users\Filipe\Documents\AndroidStudioProjects\ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1\SQLExm03.iml" filepath="C:\Users\Filipe\Documents\AndroidStudioProjects\ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1\SQLExm03.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Filipe\Documents\AndroidStudioProjects\ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1\app\app.iml" filepath="C:\Users\Filipe\Documents\AndroidStudioProjects\ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1.iml" filepath="$PROJECT_DIR$/ufjf-dcc196-2017-3-trb3-lulfa-lulfa-trb3-1.iml" />
     </modules>
   </component>
 </project>

@@ -5,22 +5,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class BibliotecaDbHelper extends SQLiteOpenHelper {
+public class TarefaDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "Biblioteca.db";
+    public static final String DATABASE_NAME = "Tarefa.db";
 
-    public BibliotecaDbHelper(Context context) {
+    public TarefaDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(BibliotecaContract.SQL_CREATE_LIVRO);
+        sqLiteDatabase.execSQL(TarefaContract.SQL_CREATE_TAREFA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(BibliotecaContract.SQL_DROP_LIVRO);
+        sqLiteDatabase.execSQL(TarefaContract.SQL_DROP_TAREFA);
         onCreate(sqLiteDatabase);
     }
 
